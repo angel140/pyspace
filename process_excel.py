@@ -2,7 +2,7 @@
 import xlrd
 import re
 
-fname = "test.xlsx"
+fname = "tt.xls"
 bk = xlrd.open_workbook(fname)
 #shxrange = range(bk.nsheets)
 try:
@@ -20,12 +20,13 @@ print ("nrows %d, ncols %d" % (nrows,ncols))
 file_object = open('thefile.txt', 'a')
 
 #获取各行数据写到文本文件中
-for i in range(1,nrows):
+for i in range(0,nrows):
     row_data = sh.row_values(i)
-    for k in range(1,len(row_data)):
+    for k in range(0,len(row_data)):
         str1 = ('%s' % (row_data[k]))
-        result = re.match(r'1\d{10}',str1,0)
+        result = re.findall(r'1\d{10}',str1,re.M)
         if result :
-        	file_object.write(('%s\n' % (result.group())))
-
+            for j in range(0,len(result)):
+            	print(result[j-1])
+            	file_object.write(('%s\n' % (result[j-1])))
 file_object.close( )
